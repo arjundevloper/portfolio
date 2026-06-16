@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "building-my-portfolio",
+    "title": "Building My Portfolio from Scratch",
+    "excerpt": "How I designed and built this portfolio — decisions, tools, and the creative process behind it.",
+    "category": "Design",
+    "date": "June 2025",
+    "readTime": "7 min",
+    "featured": true
+  },
+  {
+    "slug": "why-i-vibe-code",
+    "title": "Why I Vibe Code and Why You Should Too",
+    "excerpt": "Vibe coding isn't sloppy — it's intentional flow. Here's how I use it to move faster without sacrificing the craft.",
+    "category": "Dev",
+    "date": "May 2025",
+    "readTime": "5 min",
+    "featured": false
+  },
+  {
+    "slug": "css-variables-are-underrated",
+    "title": "CSS Variables Are Underrated",
+    "excerpt": "A deep dive into how CSS custom properties can replace a design system, a theming framework, and half your JavaScript.",
+    "category": "Dev",
+    "date": "Apr 2025",
+    "readTime": "4 min",
+    "featured": false
+  }
+]

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post — Arjun Bhadauria</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        /* ── Post page layout ── */
+        .post-container {
+            padding: calc(var(--header-h) + clamp(60px, 10vh, 90px)) clamp(24px, 6vw, 80px) clamp(80px, 12vh, 120px);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .post-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color .3s;
+            margin-bottom: clamp(36px, 6vw, 60px);
+        }
+
+        .post-back:hover {
+            color: white;
+        }
+
+        .post-back i {
+            font-size: .75rem;
+        }
+
+        .post-meta-top {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            color: var(--accent);
+            font-size: .65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .post-meta-top .dot {
+            color: var(--border);
+        }
+
+        .post-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-weight: 600;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .post-meta-bottom {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            color: var(--muted2);
+            font-size: .75rem;
+            padding-bottom: clamp(36px, 6vw, 56px);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: clamp(36px, 6vw, 56px);
+        }
+
+        .post-meta-bottom .dot {
+            color: var(--border);
+        }
+
+        /* ── Markdown body styles ── */
+        .post-body {
+            color: var(--muted);
+            line-height: 1.85;
+            font-size: .97rem;
+        }
+
+        .post-body h1,
+        .post-body h2,
+        .post-body h3,
+        .post-body h4 {
+            font-family: "Cormorant Garamond", serif;
+            color: var(--text);
+            margin-top: 2.4em;
+            margin-bottom: .6em;
+            line-height: 1.1;
+        }
+
+        .post-body h1 {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 600;
+        }
+
+        .post-body h2 {
+            font-size: clamp(1.4rem, 2.8vw, 2rem);
+            font-weight: 600;
+        }
+
+        .post-body h3 {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 500;
+        }
+
+        .post-body h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: "Inter", sans-serif;
+            letter-spacing: .04em;
+        }
+
+        .post-body p {
+            margin-bottom: 1.5em;
+        }
+
+        .post-body ul,
+        .post-body ol {
+            margin: 0 0 1.5em 1.4em;
+        }
+
+        .post-body li {
+            margin-bottom: .5em;
+        }
+
+        .post-body a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-decoration-color: rgba(123, 111, 255, .35);
+            text-underline-offset: 3px;
+            transition: color .3s, text-decoration-color .3s;
+        }
+
+        .post-body a:hover {
+            color: white;
+            text-decoration-color: rgba(255, 255, 255, .4);
+        }
+
+        .post-body blockquote {
+            border-left: 2px solid var(--accent);
+            margin: 0 0 1.5em;
+            padding: .6em 0 .6em 1.4em;
+            color: var(--muted2);
+            font-style: italic;
+        }
+
+        .post-body code {
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: .82em;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: .15em .45em;
+            color: var(--text);
+        }
+
+        .post-body pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.2em 1.4em;
+            overflow-x: auto;
+            margin-bottom: 1.8em;
+        }
+
+        .post-body pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: .84rem;
+            line-height: 1.6;
+        }
+
+        .post-body img {
+            max-width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin: 1.5em 0;
+        }
+
+        .post-body hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5em 0;
+        }
+
+        .post-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.8em;
+            font-size: .875rem;
+        }
+
+        .post-body th,
+        .post-body td {
+            border: 1px solid var(--border);
+            padding: .6em .9em;
+            text-align: left;
+        }
+
+        .post-body th {
+            background: var(--surface);
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ── Skeleton for post ── */
+        .post-skeleton .skel {
+            background: linear-gradient(90deg, #111111 25%, #181818 50%, #111111 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.6s infinite linear;
+            border-radius: 4px;
+        }
+
+        /* ── Error state ── */
+        .post-error {
+            padding: 48px;
+            text-align: center;
+            color: var(--muted);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            margin-top: 40px;
+        }
+
+        /* ── Scroll Progress Bar ── */
+        .scroll-progress {
+            position: sticky;
+            top: var(--header-h); /* directly beneath the header */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            z-index: 1000;
+        }
+
+        .scroll-progress .progress {
+            height: 100%;
+            width: 0;
+            background: #8b5cf6;
+            transition: width 0.4s ease-out;
+            box-shadow: 0 0 4px rgba(139, 92, 246, 0.4);
+            /* subtle purple glow */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise"></div>
+
+    <header>
+        <a class="logo" href="index.html">MEOW</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="art.html">Art</a>
+            <a class="active" href="blog.html">Blog</a>
+        </nav>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="scroll-progress">
+        <div class="progress"></div>
+    </div>
+    <nav class="nav-drawer">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="art.html">Art</a>
+        <a class="active" href="blog.html">Blog</a>
+    </nav>
+
+    <div class="post-container">
+        <a class="post-back" href="blog.html">
+            <i class="fa-solid fa-arrow-left"></i> Back to Blog
+        </a>
+
+        <!-- Dynamic content injected by post.js -->
+        <div id="post-root">
+            <!-- Skeleton while loading -->
+            <div class="post-skeleton">
+                <div class="skel" style="width:160px;height:11px;margin-bottom:20px;"></div>
+                <div class="skel" style="width:85%;height:44px;margin-bottom:10px;"></div>
+                <div class="skel" style="width:60%;height:44px;margin-bottom:22px;"></div>
+                <div class="skel" style="width:130px;height:10px;margin-bottom:40px;padding-bottom:40px;"></div>
+                <div class="skel" style="width:100%;height:12px;margin-bottom:14px;"></div>
+                <div class="skel" style="width:100%;height:12px;margin-bottom:14px;"></div>
+                <div class="skel" style="width:92%;height:12px;margin-bottom:14px;"></div>
+                <div class="skel" style="width:100%;height:12px;margin-bottom:14px;"></div>
+                <div class="skel" style="width:78%;height:12px;margin-bottom:32px;"></div>
+                <div class="skel" style="width:100%;height:12px;margin-bottom:14px;"></div>
+                <div class="skel" style="width:100%;height:12px;margin-bottom:14px;"></div>
+                <div class="skel" style="width:65%;height:12px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>© 2025 Arjun Bhadauria</span>
+        <nav class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="art.html">Art</a>
+            <a href="blog.html">Blog</a>
+        </nav>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="post.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Arjun Bhadauria</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .featured-post {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: clamp(32px, 5vw, 56px);
+            text-decoration: none;
+            color: inherit;
+            transition: border-color .35s;
+        }
+
+        .featured-post:hover {
+            border-color: rgba(123, 111, 255, .35);
+        }
+
+        .featured-thumb {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 3 / 2; /* 6:4 ratio */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(123, 111, 255, .2);
+        }
+
+        .featured-body {
+            padding: clamp(28px, 4vw, 44px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .featured-label {
+            font-size: .65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .featured-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .featured-excerpt {
+            color: var(--muted);
+            font-size: .88rem;
+            line-height: 1.8;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            color: var(--muted2);
+            font-size: .75rem;
+        }
+
+        
+
+.featured-meta .dot {
+    color: var(--border);
+}
+
+        @media (max-width: 700px) {
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-thumb {
+                min-height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise"></div>
+
+    <header>
+    <a class="logo" href="index.html">MEOW</a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="art.html">Art</a>
+        <a class="active" href="blog.html">Blog</a>
+    </nav>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <nav class="nav-drawer">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="art.html">Art</a>
+        <a class="active" href="blog.html">Blog</a>
+    </nav>
+
+    <div class="page-hero">
+        <div class="page-glow"></div>
+        <div class="page-hero-tag">Writing</div>
+        <h1>Blog</h1>
+        <p>Thoughts on code, design, creative process — and whatever else ends up on the page.</p>
+    </div>
+
+    <div class="section">
+
+        <!-- Featured -->
+        <div class="section-label">Featured</div>
+        <div id="featured-post-container">
+            <!-- Skeleton -->
+            <div class="featured-post featured-skeleton">
+                <div class="featured-thumb" style="background: linear-gradient(135deg, #0c0820, #1a0d35, #0a1525);">
+                    <div class="skeleton-icon skeleton-shimmer" style="width:60px;height:60px;border-radius:50%;"></div>
+                </div>
+                <div class="featured-body" style="gap:16px;">
+                    <div class="skeleton-shimmer" style="width:120px;height:11px;border-radius:2px;"></div>
+                    <div class="skeleton-shimmer" style="width:80%;height:28px;border-radius:4px;"></div>
+                    <div class="skeleton-shimmer" style="width:100%;height:10px;border-radius:2px;"></div>
+                    <div class="skeleton-shimmer" style="width:90%;height:10px;border-radius:2px;"></div>
+                    <div class="skeleton-shimmer" style="width:100px;height:10px;border-radius:2px;margin-top:4px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Posts -->
+        <div class="section-label">All Posts</div>
+        <div class="blog-list" id="blog-list">
+            <!-- Skeleton rows -->
+            <div class="blog-item blog-skeleton" style="pointer-events:none;">
+                <div>
+                    <div class="skeleton-shimmer" style="width:60px;height:10px;border-radius:2px;margin-bottom:10px;"></div>
+                    <div class="skeleton-shimmer" style="width:260px;height:18px;border-radius:3px;margin-bottom:8px;"></div>
+                    <div class="skeleton-shimmer" style="width:100%;height:9px;border-radius:2px;margin-bottom:6px;"></div>
+                    <div class="skeleton-shimmer" style="width:80%;height:9px;border-radius:2px;"></div>
+                </div>
+                <div class="blog-item-meta">
+                    <div class="skeleton-shimmer" style="width:55px;height:10px;border-radius:2px;margin-bottom:6px;"></div>
+                    <div class="skeleton-shimmer" style="width:38px;height:10px;border-radius:2px;"></div>
+                </div>
+            </div>
+            <div class="blog-item blog-skeleton" style="pointer-events:none;">
+                <div>
+                    <div class="skeleton-shimmer" style="width:50px;height:10px;border-radius:2px;margin-bottom:10px;"></div>
+                    <div class="skeleton-shimmer" style="width:220px;height:18px;border-radius:3px;margin-bottom:8px;"></div>
+                    <div class="skeleton-shimmer" style="width:100%;height:9px;border-radius:2px;margin-bottom:6px;"></div>
+                    <div class="skeleton-shimmer" style="width:70%;height:9px;border-radius:2px;"></div>
+                </div>
+                <div class="blog-item-meta">
+                    <div class="skeleton-shimmer" style="width:55px;height:10px;border-radius:2px;margin-bottom:6px;"></div>
+                    <div class="skeleton-shimmer" style="width:38px;height:10px;border-radius:2px;"></div>
+                </div>
+            </div>
+            <div class="blog-item blog-skeleton" style="pointer-events:none;">
+                <div>
+                    <div class="skeleton-shimmer" style="width:70px;height:10px;border-radius:2px;margin-bottom:10px;"></div>
+                    <div class="skeleton-shimmer" style="width:300px;height:18px;border-radius:3px;margin-bottom:8px;"></div>
+                    <div class="skeleton-shimmer" style="width:100%;height:9px;border-radius:2px;margin-bottom:6px;"></div>
+                    <div class="skeleton-shimmer" style="width:85%;height:9px;border-radius:2px;"></div>
+                </div>
+                <div class="blog-item-meta">
+                    <div class="skeleton-shimmer" style="width:55px;height:10px;border-radius:2px;margin-bottom:6px;"></div>
+                    <div class="skeleton-shimmer" style="width:38px;height:10px;border-radius:2px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>© 2025 Arjun Bhadauria</span>
+        <nav class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="art.html">Art</a>
+            <a href="blog.html">Blog</a>
+        </nav>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

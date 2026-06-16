@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art — Arjun Bhadauria</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        /* Art page extras */
+        .art-piece-bg {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated canvas pieces */
+        .art-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .art-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .filter-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 7px 18px;
+            color: var(--muted);
+            font-size: .72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: "Inter", sans-serif;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: white;
+            border-color: rgba(123, 111, 255, .4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise"></div>
+
+    <header>
+        <a class="logo" href="index.html">MEOW</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a class="active" href="art.html">Art</a>
+            <a href="blog.html">Blog</a>
+        </nav>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <nav class="nav-drawer">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a class="active" href="art.html">Art</a>
+        <a href="blog.html">Blog</a>
+    </nav>
+
+    <div class="page-hero">
+        <div class="page-glow"></div>
+        <div class="page-hero-tag">Visual Work</div>
+        <h1>Art</h1>
+        <p>i lub art ♥.</p>
+    </div>
+
+    <div class="section">
+        <div class="art-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="digital">Digital Art</button>
+            <button class="filter-btn" data-filter="concept">Concept Art</button>
+            <button class="filter-btn" data-filter="portrait">Portrait</button>
+            <button class="filter-btn" data-filter="doodle">Doodle</button>
+            <button class="filter-btn" data-filter="scribble">Scribble</button>
+            <button class="filter-btn" data-filter="painting">Painting</button>
+            <button class="filter-btn" data-filter="drawing">Drawing</button>
+        </div>
+        <div class="art-grid" id="art-grid">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="art-lightbox" class="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption">
+                <span id="lightbox-category" class="lightbox-category"></span>
+                <h3 id="lightbox-title" class="lightbox-title"></h3>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>© 2025 Arjun Bhadauria</span>
+        <nav class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="art.html">Art</a>
+            <a href="blog.html">Blog</a>
+        </nav>
+    </footer>
+
+    <script src="art-data.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Map prefix to display name
+        const CATEGORY_MAP = {
+            'digital': 'Digital Art',
+            'concept': 'Concept Art',
+            'portrait': 'Portrait',
+            'doodle': 'Doodle',
+            'scribble': 'Scribble',
+            'painting': 'Painting',
+            'drawing': 'Drawing'
+        };
+
+        const artGrid = document.getElementById('art-grid');
+        const lightbox = document.getElementById('art-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCat = document.getElementById('lightbox-category');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        // Render all pieces
+        function renderArt() {
+            artGrid.innerHTML = ART_PIECES.map(piece => {
+                const filename = typeof piece === 'string' ? piece : piece.filename;
+                let title = typeof piece === 'string' ? '' : piece.title;
+
+                const prefix = filename.split('_')[0];
+                const categoryLabel = CATEGORY_MAP[prefix] || 'Art';
+
+                if (!title) {
+                    const baseName = filename.substring(0, filename.lastIndexOf('.'));
+                    const nameParts = baseName.split('_').slice(1);
+                    title = nameParts.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                }
+                
+                return `
+                    <div class="art-piece" data-category="${prefix}">
+                        <div class="art-piece-bg">
+                            <img src="assets/art/${filename}" alt="${title}" class="art-img" loading="lazy">
+                        </div>
+                        <div class="art-piece-overlay">
+                            <div class="art-piece-meta">
+                                <span class="art-piece-category">${categoryLabel}</span>
+                                <span class="art-piece-title">${title}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Attach click events for lightbox
+            document.querySelectorAll('.art-piece').forEach((piece, index) => {
+                piece.addEventListener('click', () => {
+                    const data = ART_PIECES[index];
+                    const filename = typeof data === 'string' ? data : data.filename;
+                    let title = typeof data === 'string' ? '' : data.title;
+
+                    const prefix = filename.split('_')[0];
+                    const categoryLabel = CATEGORY_MAP[prefix] || 'Art';
+
+                    if (!title) {
+                        const baseName = filename.substring(0, filename.lastIndexOf('.'));
+                        const nameParts = baseName.split('_').slice(1);
+                        title = nameParts.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                    }
+
+                    lightboxImg.src = `assets/art/${filename}`;
+                    lightboxImg.alt = title;
+                    lightboxCat.textContent = categoryLabel;
+                    lightboxTitle.textContent = title;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+        }
+
+        // Filter functionality
+        function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+                    const pieces = document.querySelectorAll('.art-piece');
+
+                    pieces.forEach(piece => {
+                        const category = piece.getAttribute('data-category');
+                        if (filterValue === 'all' || category === filterValue) {
+                            piece.style.display = 'block';
+                            setTimeout(() => {
+                                piece.style.opacity = '1';
+                                piece.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            piece.style.opacity = '0';
+                            piece.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                piece.style.display = 'none';
+                            }, 300); // matches transition duration
+                        }
+                    });
+                });
+            });
+        }
+
+        // Close Lightbox
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close Lightbox on backdrop click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Keyboard support (escape key)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Initialize
+        renderArt();
+        setupFilters();
+    </script>
+</body>
+
+</html>
