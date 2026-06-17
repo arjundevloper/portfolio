@@ -50,122 +50,7 @@
         <div class="section-label">All Projects</div>
         <div class="card-grid" id="projects-grid">
 
-            <div class="card">
-                <div class="card-thumb">
-                    <div class="card-thumb-placeholder"
-                        style="background: linear-gradient(135deg,#0c0820,#1a0d35,#0a1525);">
-                        <i class="fa-solid fa-code" style="font-size:2.5rem;color:rgba(123,111,255,.3)"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tag">Web / Interactive</div>
-                    <div class="card-title">Portfolio v2</div>
-                    <div class="card-desc">This very site — a dark, motion-rich portfolio with a premium aurora glow
-                        system and full responsive layout.</div>
-                </div>
-                <div class="card-footer">
-                    <span class="card-date">2025</span>
-                    <a href="#" class="card-link">View →</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-thumb">
-                    <div class="card-thumb-placeholder"
-                        style="background: linear-gradient(135deg,#0a1020,#0d1830,#0a0e20);">
-                        <i class="fa-solid fa-gamepad" style="font-size:2.5rem;color:rgba(80,160,255,.3)"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tag">Game / Design</div>
-                    <div class="card-title">Project Untitled</div>
-                    <div class="card-desc">A vibe-coded game concept blending generative visuals with custom game
-                        mechanics. Work in progress.</div>
-                </div>
-                <div class="card-footer">
-                    <span class="card-date">2025</span>
-                    <a href="#" class="card-link">Coming Soon</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-thumb">
-                    <div class="card-thumb-placeholder"
-                        style="background: linear-gradient(135deg,#100820,#1a1030,#081520);">
-                        <i class="fa-solid fa-wand-magic-sparkles"
-                            style="font-size:2.5rem;color:rgba(180,110,255,.3)"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tag">Tool / Utility</div>
-                    <div class="card-title">Motion Toolkit</div>
-                    <div class="card-desc">A collection of reusable animation utilities and micro-interaction patterns
-                        built for web projects.</div>
-                </div>
-                <div class="card-footer">
-                    <span class="card-date">2024</span>
-                    <a href="https://github.com/arjundevloper" target="_blank" rel="noopener" class="card-link">GitHub
-                        →</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-thumb">
-                    <div class="card-thumb-placeholder"
-                        style="background: linear-gradient(135deg,#0a0d20,#0f1a2a,#120820);">
-                        <i class="fa-solid fa-layer-group" style="font-size:2.5rem;color:rgba(100,200,255,.3)"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tag">UI / Frontend</div>
-                    <div class="card-title">Design System</div>
-                    <div class="card-desc">A personal component library with dark-mode-first tokens, consistent spacing,
-                        and typographic scale.</div>
-                </div>
-                <div class="card-footer">
-                    <span class="card-date">2024</span>
-                    <a href="#" class="card-link">View →</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-thumb">
-                    <div class="card-thumb-placeholder"
-                        style="background: linear-gradient(135deg,#0e0c20,#1a0e28,#0a1020);">
-                        <i class="fa-brands fa-discord" style="font-size:2.5rem;color:rgba(140,120,255,.3)"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tag">Bot / Automation</div>
-                    <div class="card-title">Discord Bot</div>
-                    <div class="card-desc">A multi-feature Discord bot with moderation, music, and custom commands
-                        deployed for a community server.</div>
-                </div>
-                <div class="card-footer">
-                    <span class="card-date">2024</span>
-                    <a href="https://github.com/arjundevloper" target="_blank" rel="noopener" class="card-link">GitHub
-                        →</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-thumb">
-                    <div class="card-thumb-placeholder"
-                        style="background: linear-gradient(135deg,#080f20,#0a1a28,#140a20);">
-                        <i class="fa-solid fa-palette" style="font-size:2.5rem;color:rgba(200,140,255,.3)"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tag">Experiment</div>
-                    <div class="card-title">Generative Art Engine</div>
-                    <div class="card-desc">Canvas-based generative art experiments using noise fields, particle systems,
-                        and procedural color.</div>
-                </div>
-                <div class="card-footer">
-                    <span class="card-date">2024</span>
-                    <a href="#" class="card-link">View →</a>
-                </div>
-            </div>
+            <!-- Dynamic project cards will be injected here by JavaScript -->          
 
         </div>
     </div>
@@ -181,6 +66,31 @@
     </footer>
 
     <script src="main.js"></script>
+    <script src="projects-data.js"></script>
+    <script>
+        // Dynamically render project cards
+        const grid = document.getElementById('projects-grid');
+        projects.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const imgUrl = `https://raw.githubusercontent.com/${p.repo}/main/project.webp`;
+            card.innerHTML = `
+                <div class="card-thumb">
+                    <img src="${imgUrl}" alt="${p.title} screenshot" class="card-thumb-img" style="width:100%;height:100%;object-fit:cover;"/>
+                </div>
+                <div class="card-body">
+                    <div class="card-tag">${p.tag}</div>
+                    <div class="card-title">${p.title}</div>
+                    <div class="card-desc">${p.desc}</div>
+                </div>
+                <div class="card-footer">
+                    <span class="card-date">${p.date}</span>
+                    <a href="${p.link}" class="card-link" ${p.linkTarget ? 'target="_blank" rel="noopener"' : ''}>${p.linkText}</a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
 </body>
 
 </html>
