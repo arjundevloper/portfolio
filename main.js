@@ -31,8 +31,8 @@ if (glowLayers.length && heroImg) {
     const isMobile = window.matchMedia('(max-width: 900px)').matches;
 
     let mouse = {
-        x: window.innerWidth * (isMobile ? 0.5 : 0.72),
-        y: window.innerHeight * 0.5
+        x: window.innerWidth * (isMobile ? 0.8 : 0.311),
+        y: window.innerHeight * 0.39
     };
     let current = { ...mouse };
     let tick = 0;
@@ -54,7 +54,7 @@ if (glowLayers.length && heroImg) {
         { lag: 0.038, pulseFreq: 1.0, opacityBase: 0.78, scaleBase: 1.0 },  // core — fastest
         { lag: 0.022, pulseFreq: 0.65, opacityBase: 0.52, scaleBase: 1.35 }, // mid
         { lag: 0.013, pulseFreq: 0.42, opacityBase: 0.35, scaleBase: 1.7 },  // outer
-        { lag: 0.048, pulseFreq: 1.4,  opacityBase: 0.62, scaleBase: 0.75 }  // accent
+        { lag: 0.048, pulseFreq: 1.4, opacityBase: 0.62, scaleBase: 0.75 }  // accent
     ];
 
     // Each layer has its own interpolated position
@@ -72,9 +72,9 @@ if (glowLayers.length && heroImg) {
 
             // Organic breathing — different phase per layer
             const phase = tick + i * 1.1;
-            const breathe  = 1 + Math.sin(phase * cfg.pulseFreq) * 0.09;
-            const shimmer  = 1 + Math.sin(phase * cfg.pulseFreq * 2.3) * 0.05;
-            const scale    = cfg.scaleBase * breathe * shimmer;
+            const breathe = 1 + Math.sin(phase * cfg.pulseFreq) * 0.09;
+            const shimmer = 1 + Math.sin(phase * cfg.pulseFreq * 2.3) * 0.05;
+            const scale = cfg.scaleBase * breathe * shimmer;
 
             // Soft twirl — very subtle rotation
             const rotate = Math.sin(phase * 0.38) * 12;
@@ -88,14 +88,14 @@ if (glowLayers.length && heroImg) {
             const cy = positions[i].y;
 
             glow.style.left = cx + 'px';
-            glow.style.top  = cy + 'px';
+            glow.style.top = cy + 'px';
             glow.style.transform = `translate(-50%,-50%) scale(${scale}) rotate(${rotate}deg)`;
             glow.style.opacity = Math.max(0.06, Math.min(1, flicker));
         });
 
         // Subtle parallax on panther (disabled on mobile/reduced-motion)
         if (!isMobile && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            const px = (mouse.x - window.innerWidth  / 2) * 0.010;
+            const px = (mouse.x - window.innerWidth / 2) * 0.010;
             const py = (mouse.y - window.innerHeight / 2) * 0.010;
             heroImg.style.transform = `translate(${px}px, ${py}px) scale(1.025)`;
         }
@@ -182,9 +182,9 @@ async function fetchGithubProjects(grid, fallbackHTML) {
         if (!response.ok) {
             throw new Error(`GitHub API returned status ${response.status}`);
         }
-        
+
         let repos = await response.json();
-        
+
         // Filter out forks, the user's config repo, and the blogs repo
         repos = repos.filter(repo => !repo.fork && repo.name !== 'arjundevloper' && repo.name !== 'blogs');
 
@@ -285,11 +285,11 @@ async function fetchGithubProjects(grid, fallbackHTML) {
    GITHUB BLOG LOADER
    ============================================= */
 const BLOG_REPO = 'arjundevloper/blogs';
-const BLOG_RAW  = `https://raw.githubusercontent.com/${BLOG_REPO}/main`;
+const BLOG_RAW = `https://raw.githubusercontent.com/${BLOG_REPO}/main`;
 const BLOG_INDEX = `${BLOG_RAW}/index.json`;
 
 const featuredContainer = document.getElementById('featured-post-container');
-const blogList          = document.getElementById('blog-list');
+const blogList = document.getElementById('blog-list');
 
 if (featuredContainer && blogList) {
     fetchGithubBlogs();
@@ -303,7 +303,7 @@ async function fetchGithubBlogs() {
 
         // Separate featured from the rest
         const featured = posts.find(p => p.featured) || posts[0];
-        const rest      = posts.filter(p => p !== featured);
+        const rest = posts.filter(p => p !== featured);
 
         // ── Featured card ──────────────────────────────────
         if (featured) {
@@ -369,18 +369,18 @@ let currentProgress = 0; // Smoothed progress displayed
 
 // Update target progress on scroll – calculations only
 window.addEventListener('scroll', () => {
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  targetProgress = (scrollTop / scrollHeight) * 100;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    targetProgress = (scrollTop / scrollHeight) * 100;
 });
 
 // Animation loop: lerp toward target for fluid motion
 function animateProgress() {
-  // Ease factor 0.08 – adjust for smoothness
-  currentProgress += (targetProgress - currentProgress) * 0.08;
-  // Snap when close to avoid endless tiny diff
-  if (Math.abs(targetProgress - currentProgress) < 0.1) currentProgress = targetProgress;
-  if (progressBar) progressBar.style.width = `${currentProgress.toFixed(2)}%`;
-  requestAnimationFrame(animateProgress);
+    // Ease factor 0.08 – adjust for smoothness
+    currentProgress += (targetProgress - currentProgress) * 0.08;
+    // Snap when close to avoid endless tiny diff
+    if (Math.abs(targetProgress - currentProgress) < 0.1) currentProgress = targetProgress;
+    if (progressBar) progressBar.style.width = `${currentProgress.toFixed(2)}%`;
+    requestAnimationFrame(animateProgress);
 }
 animateProgress();
